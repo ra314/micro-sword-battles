@@ -10,7 +10,7 @@
 script = ExtResource( 1 )
 
 [node name="Player1" parent="." instance=ExtResource( 3 )]
-position = Vector2( 1824, 984 )
+position = Vector2( 1510, 984 )
 scale = Vector2( 4, 4 )
 collision_layer = 2
 
@@ -19,7 +19,7 @@ position = Vector2( 10.85, -10.85 )
 collision_layer = 4
 
 [node name="Player2" parent="." instance=ExtResource( 3 )]
-position = Vector2( 64, 984 )
+position = Vector2( 334, 984 )
 scale = Vector2( 4, 4 )
 collision_layer = 2
 move_right = true
@@ -30,17 +30,37 @@ rotation = 0.785398
 collision_layer = 4
 
 [node name="OneWay1" parent="." instance=ExtResource( 2 )]
-position = Vector2( 1727, 708 )
+position = Vector2( 270, 708 )
+
+[node name="OneWay2" parent="." instance=ExtResource( 2 )]
+position = Vector2( 578, 812 )
+
+[node name="OneWay3" parent="." instance=ExtResource( 2 )]
+position = Vector2( 465, 538 )
+
+[node name="OneWay4" parent="." instance=ExtResource( 2 )]
+position = Vector2( 943, 639 )
+
+[node name="OneWay5" parent="." instance=ExtResource( 2 )]
+position = Vector2( 1217, 496 )
+
+[node name="OneWay6" parent="." instance=ExtResource( 2 )]
+position = Vector2( 1437, 723 )
+
+[node name="OneWay7" parent="." instance=ExtResource( 2 )]
+position = Vector2( 1325, 858 )
+scale = Vector2( 1.4, 1 )
 
 [node name="Platform" parent="." instance=ExtResource( 5 )]
-position = Vector2( 0, 1016 )
+position = Vector2( 220, 1016 )
+scale = Vector2( 0.733, 1 )
 
 [node name="Platform2" parent="." instance=ExtResource( 5 )]
-position = Vector2( 0, -840 )
+position = Vector2( 285, -840 )
 rotation = 1.5708
 
 [node name="Platform3" parent="." instance=ExtResource( 5 )]
-position = Vector2( 1984, -840 )
+position = Vector2( 1632, -840 )
 rotation = 1.5708
 
 [node name="Camera2D" type="Camera2D" parent="."]
