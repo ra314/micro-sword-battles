@@ -39,7 +39,6 @@ func _on_body_entered(body):
 func add_to_player(new_player):
 	player = new_player
 	set_pnames()
-	set_collision_mask_bit(PLATFORM_COLLISION_LAYER, false)
 	world.remove_child(self)
 	player.add_child(self)
 	player.sword = self
@@ -56,7 +55,6 @@ func init_pos_and_rot():
 		rotation_degrees = 135
 
 const PLATFORM_COLLISION_LAYER = 0
-const PLAYER_COLLISION_LAYER = 1
 const BIG_SCALE = Vector2(2, 1)
 const SMALL_SCALE = Vector2(0.5, 0.25)
 func throw_self():
@@ -75,7 +73,6 @@ func throw_self():
 		velocity = Vector2(-H_SPEED, -V_SPEED)
 	
 	set_collision_mask_bit(PLATFORM_COLLISION_LAYER, true)
-	#set_collision_mask_bit(PLAYER_COLLISION_LAYER, true)
 
 func _physics_process(delta):
 	# Vertical movement code. Apply gravity.
@@ -83,7 +80,6 @@ func _physics_process(delta):
 		# Become non dangerous
 		if is_on_floor():
 			velocity = Vector2()
-			set_collision_mask_bit(PLAYER_COLLISION_LAYER, false)
 			enemy_name = null
 			player = null
 		# Rotate and fall
