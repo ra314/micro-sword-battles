@@ -46,19 +46,25 @@ func is_game_over():
 	return $Label1.text == str(GAME_OVER_SCORE) or $Label2.text == str(GAME_OVER_SCORE)
 
 func game_over(winner_color):
+	$Label3.visible = true
 	$Label3.text = winner_color + " wins!"
 
-const GAME_OVER_SCORE = 5
+const GAME_OVER_SCORE = 1
 const DEATH_RESET_TIME = 4
 func reset(killed_player):
-	if killed_player:
-		increase_score(killed_player)
+	if not killed_player:
+		reset_stage()
+		return
 	
+	increase_score(killed_player)
 	if is_game_over():
 		game_over(get_other_player(killed_player).color)
+		return
 	
 	yield(get_tree().create_timer(DEATH_RESET_TIME), "timeout")
-	
+	reset_stage()
+
+func reset_stage():
 	$Player1.reset()
 	$Player2.reset()
 	sword1.add_to_player($Player1)
