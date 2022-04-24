@@ -1,4 +1,5 @@
 extends KinematicBody2D
+class_name Player
 
 const WALK_SPEED = 300
 const JUMP_SPEED = 1200
@@ -6,26 +7,35 @@ const JUMP_SPEED = 1200
 const FALL_MULTIPLIER = 2.5;
 
 var velocity = Vector2(WALK_SPEED, 0)
-export var move_right = bool()
+export var move_right: bool
 var is_jumping = false
+var sword
 
 onready var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
 func _ready():
-	connect("throwing", $Sword, "throw_self")
+	sword = get_sword()
+
+func get_sword():
+	for child in get_children():
+		if child.name.begins_with("Sword"):
+			return child
+	return null
 
 func has_sword():
-	for child in get_children():
-		if child.name == "Sword":
-			return true
-	return false
+	return get_sword() != null
 
-signal throwing
+func switch_direction():
+	print(move_right)
+	move_right = not move_right
+	print(move_right)
+	if sword != null:
+		sword.init_pos_and_rot()
+
 func _physics_process(delta):
 	if is_on_wall():
-		print("im on the wall")
-		move_right = not move_right
-		print(velocity)
+		print("on wall, switching direction")
+		switch_direction()
 	
 	if move_right:
 		velocity.x = WALK_SPEED
@@ -49,8 +59,8 @@ func _physics_process(delta):
 func action():
 	# Check for jumping. is_on_floor() must be called after movement code.
 	if is_on_floor():
-		#if has_sword():
-		#	emit_signal("throwing")
-		#else:
-		velocity.y = -JUMP_SPEED
-		is_jumping = true
+		if has_sword():
+			sword.throw_self()
+		else:
+			velocity.y = -JUMP_SPEED
+			is_jumping = true

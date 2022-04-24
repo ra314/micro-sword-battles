@@ -8,13 +8,29 @@
 
 config_version=4
 
+_global_script_classes=[ {
+"base": "KinematicBody2D",
+"class": "Player",
+"language": "GDScript",
+"path": "res://player/player.gd"
+}, {
+"base": "KinematicBody2D",
+"class": "Sword",
+"language": "GDScript",
+"path": "res://sword.gd"
+} ]
+_global_script_class_icons={
+"Player": "",
+"Sword": ""
+}
+
 [application]
 
 config/name="Kinematic Character 2D"
 config/description="Example of how to make a kinematic character controller in 2D using
 KinematicBody2D. The character moves around, is affected by moving
 platforms, can jump through one-way collision platforms, etc."
-run/main_scene="res://world.tscn"
+run/main_scene="res://Level Main.tscn"
 config/icon="res://icon.png"
 
 [display]
