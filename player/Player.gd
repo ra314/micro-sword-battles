@@ -1,28 +1,38 @@
 extends KinematicBody2D
+class_name Player
 
 const WALK_SPEED = 200
 const JUMP_SPEED = 800
 
 var velocity = Vector2(WALK_SPEED, 0)
 export var move_right = bool()
+var sword
 
 onready var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
 func _ready():
-	connect("throwing", $Sword, "throw_self")
+	sword = get_sword()
+	connect("throwing", sword, "throw_self")
+
+func get_sword():
+	for child in get_children():
+		if child.name.begins_with("Sword"):
+			return child
+	return null
 
 func has_sword():
-	for child in get_children():
-		if child.name == "Sword":
-			return true
-	return false
+	return get_sword() != null
+
+func switch_direction():
+	move_right = not move_right
+	if sword != null:
+		sword.init_pos_and_rot()
 
 signal throwing
 func _physics_process(delta):
 	if is_on_wall():
-		print("im on the wall")
-		move_right = not move_right
-		print(velocity)
+		print("on wall, switching direction")
+		switch_direction()
 	
 	if move_right:
 		velocity.x = WALK_SPEED
