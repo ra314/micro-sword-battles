@@ -53,7 +53,6 @@ func game_over():
 func reset(killed_player):
 	if killed_player:
 		increase_score(killed_player)
-		print(killed_player.name + " was killed")
 	
 	if is_game_over():
 		game_over()
