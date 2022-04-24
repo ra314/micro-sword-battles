@@ -13,7 +13,13 @@ var sword
 
 onready var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
+var init_position
+var init_direction
+var init_velocity
 func _ready():
+	init_position = position
+	init_direction = move_right
+	init_velocity = velocity
 	sword = get_sword()
 
 func get_sword():
@@ -52,6 +58,12 @@ func _physics_process(delta):
 	
 	# Move based on the velocity and snap to the ground.
 	move_and_slide_with_snap(velocity, Vector2.DOWN, Vector2.UP)
+
+func reset():
+	position = init_position
+	move_right = init_direction
+	velocity = init_velocity
+	sword = null
 
 func action():
 	# Check for jumping. is_on_floor() must be called after movement code.

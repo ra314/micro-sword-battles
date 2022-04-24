@@ -1,10 +1,11 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://Level Main.gd" type="Script" id=1]
 [ext_resource path="res://Platform.tscn" type="PackedScene" id=2]
 [ext_resource path="res://OneWay1.tscn" type="PackedScene" id=3]
 [ext_resource path="res://player/player.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Sword.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Fonts/Font_50.tres" type="DynamicFont" id=6]
 
 [node name="World" type="Node2D"]
 script = ExtResource( 1 )
@@ -56,5 +57,26 @@ margin_left = 16.0
 margin_top = 64.0
 margin_right = 61.0
 margin_bottom = 84.0
-rect_scale = Vector2( 4, 4 )
+rect_scale = Vector2( 4, 3.96741 )
 text = "jump"
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="Label1" type="Label" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 320.0
+margin_right = 519.0
+margin_bottom = 367.0
+custom_fonts/font = ExtResource( 6 )
+text = "0"
+
+[node name="Label2" type="Label" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 1400.0
+margin_right = 1599.0
+margin_bottom = 367.0
+custom_fonts/font = ExtResource( 6 )
+text = "0"

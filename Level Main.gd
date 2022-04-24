@@ -5,13 +5,34 @@ extends Node2D
 # var a = 2
 # var b = "text"
 
+var sword1
+var sword2
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	sword1 = $Player1/Sword1
+	sword2 = $Player2/Sword2
+	
 	$Player1/Sword1.connect("player_killed", self, "reset")
 	$Player2/Sword2.connect("player_killed", self, "reset")
+	
 	$Button1.connect("button_down", $Player1, "action")
 	$Button2.connect("button_down", $Player2, "action")
+
+func get_other_player(player):
+	var players = [$Player1, $Player2]
+	players.remove(player)
+	assert(len(players) == 1)
+	return players[0]
+
+func increase_score(killed_player):
+	# Updating the text
+	var label
+	if "1" in killed_player.name:
+		label = $Label1
+	else:
+		label = $Label2
+	label.text = str(int(label.text)+1)
 
 func _process(delta):
 	if Input.is_action_just_pressed("move_right"):
@@ -21,7 +42,11 @@ func _process(delta):
 	if Input.is_action_just_pressed("jump"):
 		reset(null)
 
-
 func reset(killed_player):
-	get_tree().reload_current_scene()
-	pass
+	if killed_player:
+		increase_score(killed_player)
+		print(killed_player.name + " was killed")
+	$Player1.reset()
+	$Player2.reset()
+	sword1.add_to_player($Player1)
+	sword2.add_to_player($Player2)

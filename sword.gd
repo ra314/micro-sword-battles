@@ -45,6 +45,8 @@ func add_to_player(new_player):
 	thrown = false
 	scale = SMALL_SCALE
 	init_pos_and_rot()
+	velocity = Vector2(0,0)
+	set_collision_mask_bit(PLATFORM_COLLISION_LAYER, false)
 
 func init_pos_and_rot():
 	if player.move_right:
