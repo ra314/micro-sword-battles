@@ -25,6 +25,7 @@ func get_other_player(player):
 	assert(len(players) == 1)
 	return players[0]
 
+const GAME_OVER_SCORE = 1
 func increase_score(killed_player):
 	# Updating the text
 	var label
@@ -42,11 +43,22 @@ func _process(delta):
 	if Input.is_action_just_pressed("jump"):
 		reset(null)
 
+func is_game_over():
+	return $Label1.text == str(GAME_OVER_SCORE) or $Label2.text == str(GAME_OVER_SCORE)
+
+func game_over():
+	$Player1.stop()
+	$Player2.stop()
+
 func reset(killed_player):
 	if killed_player:
 		increase_score(killed_player)
 		print(killed_player.name + " was killed")
-	$Player1.reset()
-	$Player2.reset()
-	sword1.add_to_player($Player1)
-	sword2.add_to_player($Player2)
+	
+	if is_game_over():
+		game_over()
+	else:
+		$Player1.reset()
+		$Player2.reset()
+		sword1.add_to_player($Player1)
+		sword2.add_to_player($Player2)
