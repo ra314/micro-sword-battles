@@ -10,6 +10,7 @@ var thrown = false
 var player
 var enemy_name 
 var world = null
+var dead = false
 
 func _ready():
 	player = get_parent()
@@ -25,16 +26,20 @@ func set_pnames():
 
 signal player_killed
 func _on_body_entered(body):
-	print(name + " is entering " + body.name)
-	if thrown:
-		print(enemy_name)
+	if thrown and not dead:
 		if body.name == enemy_name:
-			print("emitting player_killed")
 			emit_signal("player_killed", body)
+			die()
+			body.die()
+	
 	if is_on_floor():
 		if body.name.begins_with("Player"):
 			if body.sword == null:
 				add_to_player(body)
+
+func die():
+	dead = true
+	visible = false
 
 func add_to_player(new_player):
 	player = new_player
@@ -42,11 +47,16 @@ func add_to_player(new_player):
 	world.remove_child(self)
 	player.add_child(self)
 	player.sword = self
-	thrown = false
 	scale = SMALL_SCALE
 	init_pos_and_rot()
-	velocity = Vector2(0,0)
 	set_collision_mask_bit(PLATFORM_COLLISION_LAYER, false)
+	reset()
+
+func reset():
+	thrown = false
+	dead = false
+	visible = true
+	velocity = Vector2(0,0)
 
 func init_pos_and_rot():
 	if player.move_right:
@@ -77,6 +87,9 @@ func throw_self():
 	set_collision_mask_bit(PLATFORM_COLLISION_LAYER, true)
 
 func _physics_process(delta):
+	if dead:
+		return
+	
 	# Vertical movement code. Apply gravity.
 	if thrown:
 		# Become non dangerous

@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://Level Main.gd" type="Script" id=1]
 [ext_resource path="res://Platform.tscn" type="PackedScene" id=2]
@@ -6,6 +6,11 @@
 [ext_resource path="res://player/player.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Sword.tscn" type="PackedScene" id=5]
 [ext_resource path="res://Fonts/Font_50.tres" type="DynamicFont" id=6]
+[ext_resource path="res://Fonts/Montserrat-Regular.ttf" type="DynamicFontData" id=7]
+
+[sub_resource type="DynamicFont" id=1]
+size = 200
+font_data = ExtResource( 7 )
 
 [node name="World" type="Node2D"]
 script = ExtResource( 1 )
@@ -21,6 +26,7 @@ position = Vector2( 10.85, -10.85 )
 position = Vector2( 32, 984 )
 scale = Vector2( 4, 4 )
 move_right = true
+color = "Red"
 
 [node name="Sword2" parent="Player2" instance=ExtResource( 5 )]
 position = Vector2( -10.85, -10.85 )
@@ -79,6 +85,17 @@ margin_right = 1727.0
 margin_bottom = 295.0
 custom_fonts/font = ExtResource( 6 )
 text = "0"
+
+[node name="Label3" type="Label" parent="."]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 8.0
+margin_right = 1912.0
+margin_bottom = 245.0
+custom_fonts/font = SubResource( 1 )
+text = "Red Wins"
+align = 1
 
 [node name="OneWay1" parent="." instance=ExtResource( 3 )]
 position = Vector2( 1159, 832 )

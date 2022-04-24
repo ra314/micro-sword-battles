@@ -8,9 +8,10 @@ const FALL_MULTIPLIER = 2.5;
 
 var velocity = Vector2(WALK_SPEED, 0)
 export var move_right: bool
+export(String, "Blue", "Red") var color
 var is_jumping = false
 var sword
-var stopped = false
+var dead = false
 
 onready var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
@@ -34,18 +35,24 @@ func has_sword():
 
 func switch_direction():
 	move_right = not move_right
-	if sword != null:
+	if has_sword():
 		sword.init_pos_and_rot()
 
+func die():
+	dead = true
+	visible = false
+
 func _physics_process(delta):
+	if dead:
+		return
+	
 	if is_on_wall():
 		switch_direction()
 	
-	if not stopped:
-		if move_right:
-			velocity.x = WALK_SPEED
-		else:
-			velocity.x = -WALK_SPEED
+	if move_right:
+		velocity.x = WALK_SPEED
+	else:
+		velocity.x = -WALK_SPEED
 	
 	# Vertical movement code. Apply gravity.
 	# velocity.y += gravity * delta
@@ -66,10 +73,8 @@ func reset():
 	move_right = init_direction
 	velocity = init_velocity
 	sword = null
-
-func stop():
-	stopped = true
-	velocity.x = 0
+	dead = false
+	visible = true
 
 func action():
 	# Check for jumping. is_on_floor() must be called after movement code.

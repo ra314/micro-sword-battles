@@ -21,11 +21,10 @@ func _ready():
 
 func get_other_player(player):
 	var players = [$Player1, $Player2]
-	players.remove(player)
+	players.erase(player)
 	assert(len(players) == 1)
 	return players[0]
 
-const GAME_OVER_SCORE = 1
 func increase_score(killed_player):
 	# Updating the text
 	var label
@@ -46,18 +45,21 @@ func _process(delta):
 func is_game_over():
 	return $Label1.text == str(GAME_OVER_SCORE) or $Label2.text == str(GAME_OVER_SCORE)
 
-func game_over():
-	$Player1.stop()
-	$Player2.stop()
+func game_over(winner_color):
+	$Label3.text = winner_color + " wins!"
 
+const GAME_OVER_SCORE = 5
+const DEATH_RESET_TIME = 4
 func reset(killed_player):
 	if killed_player:
 		increase_score(killed_player)
 	
 	if is_game_over():
-		game_over()
-	else:
-		$Player1.reset()
-		$Player2.reset()
-		sword1.add_to_player($Player1)
-		sword2.add_to_player($Player2)
+		game_over(get_other_player(killed_player).color)
+	
+	yield(get_tree().create_timer(DEATH_RESET_TIME), "timeout")
+	
+	$Player1.reset()
+	$Player2.reset()
+	sword1.add_to_player($Player1)
+	sword2.add_to_player($Player2)
