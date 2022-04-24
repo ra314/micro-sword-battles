@@ -14,6 +14,7 @@ var world = null
 func _ready():
 	player = get_parent()
 	world = player.get_parent()
+	set_pnames()
 	$Area2D.connect("body_entered", self, "_on_body_entered")
 
 func set_pnames():
@@ -24,8 +25,11 @@ func set_pnames():
 
 signal player_killed
 func _on_body_entered(body):
+	print(name + " is entering " + body.name)
 	if thrown:
+		print(enemy_name)
 		if body.name == enemy_name:
+			print("emitting player_killed")
 			emit_signal("player_killed", body)
 	if is_on_floor():
 		if body.name.begins_with("Player"):
@@ -44,7 +48,6 @@ func add_to_player(new_player):
 	init_pos_and_rot()
 
 func init_pos_and_rot():
-	print(player.move_right)
 	if player.move_right:
 		position = Vector2(-10.85, -10.85)
 		rotation_degrees = 45
@@ -72,7 +75,7 @@ func throw_self():
 		velocity = Vector2(-H_SPEED, -V_SPEED)
 	
 	set_collision_mask_bit(PLATFORM_COLLISION_LAYER, true)
-	set_collision_mask_bit(PLAYER_COLLISION_LAYER, true)
+	#set_collision_mask_bit(PLAYER_COLLISION_LAYER, true)
 
 func _physics_process(delta):
 	# Vertical movement code. Apply gravity.

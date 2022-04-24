@@ -26,15 +26,12 @@ func has_sword():
 	return get_sword() != null
 
 func switch_direction():
-	print(move_right)
 	move_right = not move_right
-	print(move_right)
 	if sword != null:
 		sword.init_pos_and_rot()
 
 func _physics_process(delta):
 	if is_on_wall():
-		print("on wall, switching direction")
 		switch_direction()
 	
 	if move_right:
