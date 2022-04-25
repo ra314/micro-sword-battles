@@ -46,7 +46,7 @@ func die():
 	visible = false
 
 const MAX_ROT_RANGE_DEG = 120
-const ROT_SPEED = 1
+const ROT_SPEED = 3
 
 const RIGHT_MAX_ROT_DEG = 0
 const LEFT_MIN_ROT_DEG = -180
@@ -126,7 +126,7 @@ func action():
 	# Check for jumping. is_on_floor() must be called after movement code.
 	if is_on_floor():
 		if has_sword():
-			sword.throw_self()
+			sword.throw_self(abs($Sprite2.rotation_degrees))
 		else:
 			velocity.y = -JUMP_SPEED
 			is_jumping = true

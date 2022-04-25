@@ -3,6 +3,7 @@ class_name Sword
 
 const H_SPEED = 500
 const V_SPEED = 1000
+const THROW_POWER = 1000
 
 var velocity = Vector2()
 onready var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
@@ -69,7 +70,7 @@ func init_pos_and_rot():
 const PLATFORM_COLLISION_LAYER = 0
 const BIG_SCALE = Vector2(2, 1)
 const SMALL_SCALE = Vector2(0.5, 0.25)
-func throw_self():
+func throw_self(degrees):
 	thrown = true
 	
 	var prev_position = global_position
@@ -79,10 +80,12 @@ func throw_self():
 	position = prev_position
 	scale = BIG_SCALE
 	
-	if player.move_right:
-		velocity = Vector2(H_SPEED, -V_SPEED)
-	else:
-		velocity = Vector2(-H_SPEED, -V_SPEED)
+	velocity = Vector2(cos(deg2rad(degrees))*THROW_POWER, -sin(deg2rad(degrees))*THROW_POWER)
+	print(degrees, velocity)
+#	if player.move_right:
+#		velocity = Vector2(H_SPEED, -V_SPEED)
+#	else:
+#		velocity = Vector2(-H_SPEED, -V_SPEED)
 	
 	set_collision_mask_bit(PLATFORM_COLLISION_LAYER, true)
 
