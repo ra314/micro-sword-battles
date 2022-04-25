@@ -20,7 +20,7 @@ position = Vector2( 1888, 984.631 )
 scale = Vector2( 4, 4 )
 
 [node name="Sword1" parent="Player1" instance=ExtResource( 5 )]
-position = Vector2( 10.85, -10.85 )
+position = Vector2( 12, -4 )
 
 [node name="Player2" parent="." instance=ExtResource( 4 )]
 position = Vector2( 32, 984 )
@@ -29,7 +29,7 @@ move_right = true
 color = "Red"
 
 [node name="Sword2" parent="Player2" instance=ExtResource( 5 )]
-position = Vector2( -10.85, -10.85 )
+position = Vector2( -12, -4 )
 rotation = 0.785398
 
 [node name="Platform" parent="." instance=ExtResource( 2 )]

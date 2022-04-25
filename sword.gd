@@ -61,10 +61,10 @@ func reset():
 
 func init_pos_and_rot():
 	if player.move_right:
-		position = Vector2(-10.85, -10.85)
+		position = Vector2(-12, -4)
 		rotation_degrees = 45
 	else:
-		position = Vector2(10.85, -10.85)
+		position = Vector2(12, -4)
 		rotation_degrees = 135
 
 const PLATFORM_COLLISION_LAYER = 0

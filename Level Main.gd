@@ -49,7 +49,7 @@ func game_over(winner_color):
 	$Label3.visible = true
 	$Label3.text = winner_color + " wins!"
 
-const GAME_OVER_SCORE = 1
+const GAME_OVER_SCORE = 5
 const DEATH_RESET_TIME = 4
 func reset(killed_player):
 	if not killed_player:
